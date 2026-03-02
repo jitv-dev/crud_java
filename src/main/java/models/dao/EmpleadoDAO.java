@@ -72,4 +72,33 @@ public class EmpleadoDAO {
 
         return result;
     }
+
+    public int actualizar(Empleado obj){
+        int result = 0;
+
+        try {
+            cn = Conexion.getConnection();
+            String sql = "update empleado set nombres = ? , apellidos = ?, fecha_ingreso = ?, sueldo = ? where id = ?";
+            ps = cn.prepareStatement(sql);
+
+            ps.setString(1, obj.getNombres());
+            ps.setString(2, obj.getApellidos());
+            ps.setString(3, obj.getFechaIngreso());
+            ps.setDouble(4, obj.getSueldo());
+            ps.setInt(5, obj.getId());
+
+            result = ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (cn != null) cn.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return result;
+    }
 }

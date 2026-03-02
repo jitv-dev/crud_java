@@ -33,6 +33,9 @@ public class EmpleadoController extends HttpServlet {
             case "guardar":
                 guardar(request, response);
                 break;
+            case "actualizar":
+                actualizar(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -72,7 +75,27 @@ public class EmpleadoController extends HttpServlet {
             request.setAttribute("empleado", obj);
             request.getRequestDispatcher(pagNuevo).forward(request, response);
         }
+    }
 
+    protected void actualizar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        Empleado obj = new Empleado();
+        obj.setNombres(request.getParameter("nombres"));
+        obj.setApellidos(request.getParameter("apellidos"));
+        obj.setFechaIngreso(request.getParameter("fechaIngreso"));
+        obj.setSueldo(Double.parseDouble(request.getParameter("sueldo")));
+        obj.setId(Integer.parseInt(request.getParameter("id")));
+
+        int result = empDao.actualizar(obj);
+
+        if (result > 0) {
+            response.sendRedirect("EmpleadoController?accion=listar");
+        } else {
+            request.setAttribute("empleado", obj);
+            request.getRequestDispatcher(pagListar).forward(request, response);
+        }
     }
 
     @Override
