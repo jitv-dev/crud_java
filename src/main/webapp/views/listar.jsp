@@ -47,24 +47,32 @@
                             data-sueldo="${item.sueldo}">
                         <i class="fa fa-edit"></i>
                     </button>
+                    <button class="btn btn-danger btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalEliminar"
+                            data-id="${item.id}"
+                            data-nombres="${item.nombres}"
+                            data-apellidos="${item.apellidos}">
+                        <i class="fa fa-trash"></i>
+                    </button>
                 </td>
             </tr>
         </c:forEach>
         <c:if test="${empleados.size() == 0}">
             <tr>
-                <td colspan=5>No hay registros</td>
+                <td colspan=6>No hay registros</td>
             </tr>
         </c:if>
         </tbody>
     </table>
 </div>
 
-<%--Modal--%>
+<%--Modal edicion--%>
 <div class="modal fade" id="modalEditar" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold">Editar Empleado</h5>
+                <h5 class="modal-title fw-bold w-100 text-center">Editar Empleado</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -91,7 +99,9 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-warning"><i class="fa fa-save"></i> Actualizar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-arrow-left"></i> Cancelar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                                class="fa fa-arrow-left"></i> Cancelar
+                        </button>
                     </div>
                 </form>
             </div>
@@ -99,15 +109,42 @@
     </div>
 </div>
 
+<%--Modal eliminar--%>
+<div class="modal fade" id="modalEliminar" tabindex="-1">
+    <div class="modal-dialog modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center">¿Estás seguro de eliminar a <strong id="nombreEliminar"></strong>?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                Esta acción no se puede deshacer.
+            </div>
+            <div class="modal-footer justify-content-center">
+                <a id="btnConfirmarEliminar" href="#" class="btn btn-danger">Eliminar</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <%--Js para el llenado del modal--%>
 <script>
-    document.getElementById('modalEditar').addEventListener('show.bs.modal', function(e) {
+    document.getElementById('modalEditar').addEventListener('show.bs.modal', function (e) {
         let btn = e.relatedTarget;
-        document.getElementById('editId').value        = btn.dataset.id;
-        document.getElementById('editNombres').value   = btn.dataset.nombres;
+        document.getElementById('editId').value = btn.dataset.id;
+        document.getElementById('editNombres').value = btn.dataset.nombres;
         document.getElementById('editApellidos').value = btn.dataset.apellidos;
-        document.getElementById('editFecha').value     = btn.dataset.fecha;
-        document.getElementById('editSueldo').value    = btn.dataset.sueldo;
+        document.getElementById('editFecha').value = btn.dataset.fecha;
+        document.getElementById('editSueldo').value = btn.dataset.sueldo;
+    });
+    document.getElementById('modalEliminar').addEventListener('show.bs.modal', function(e) {
+        let btn = e.relatedTarget;
+        let id = btn.dataset.id;
+        let nombre = btn.dataset.nombres + ' ' + btn.dataset.apellidos;
+
+        document.getElementById('btnConfirmarEliminar').href = 'EmpleadoController?accion=eliminar&id=' + id;
+        document.getElementById('nombreEliminar').textContent = nombre;
     });
 </script>
 

@@ -36,6 +36,9 @@ public class EmpleadoController extends HttpServlet {
             case "actualizar":
                 actualizar(request, response);
                 break;
+            case "eliminar":
+                eliminar(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -94,6 +97,21 @@ public class EmpleadoController extends HttpServlet {
             response.sendRedirect("EmpleadoController?accion=listar");
         } else {
             request.setAttribute("empleado", obj);
+            request.getRequestDispatcher(pagListar).forward(request, response);
+        }
+    }
+
+    protected void eliminar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        int result = empDao.eliminar(id);
+
+        if (result > 0) {
+            response.sendRedirect("EmpleadoController?accion=listar");
+        } else {
             request.getRequestDispatcher(pagListar).forward(request, response);
         }
     }

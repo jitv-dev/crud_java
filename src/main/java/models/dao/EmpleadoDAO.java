@@ -98,6 +98,30 @@ public class EmpleadoDAO {
                 ex.printStackTrace();
             }
         }
+        return result;
+    }
+
+    public int eliminar(int id){
+        int result = 0;
+
+        try {
+            cn = Conexion.getConnection();
+            String sql = "delete from empleado where id = ?";
+            ps = cn.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            result = ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (cn != null) cn.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
 
         return result;
     }
