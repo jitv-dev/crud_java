@@ -19,20 +19,20 @@
                 <div class="row">
                     <div class="mb-3 col-6">
                         <label for="nombres" class="form-label fw-bold">Nombres:</label>
-                        <input type="text" class="form-control" id="nombres" maxlength="50" name="nombres">
+                        <input type="text" class="form-control" id="nombres" maxlength="50" name="nombres" value="${empleado.nombres}">
                     </div>
                     <div class="mb-3 col-6">
                         <label for="apellidos" class="form-label fw-bold">Apellidos:</label>
-                        <input type="text" class="form-control" id="apellidos" maxlength="50" name="apellidos">
+                        <input type="text" class="form-control" id="apellidos" maxlength="50" name="apellidos" value="${empleado.apellidos}">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="fechaIngreso" class="form-label fw-bold">Fecha de ingreso:</label>
-                    <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso">
+                    <input type="date" class="form-control" id="fechaIngreso" name="fechaIngreso" value="${empleado.fechaIngreso}">
                 </div>
                 <div class="mb-3">
                     <label for="sueldo" class="form-label fw-bold">Sueldo:</label>
-                    <input type="number" class="form-control" id="sueldo" name="sueldo">
+                    <input type="number" class="form-control" id="sueldo" name="sueldo" value="${empleado.sueldo}">
                 </div>
                 <div class="text-center">
                     <input type="hidden" name="accion" value="guardar">
