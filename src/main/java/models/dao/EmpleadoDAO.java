@@ -44,4 +44,32 @@ public class EmpleadoDAO {
         }
         return lista;
     }
+
+    public int registrar(Empleado obj){
+        int result = 0;
+
+        try {
+            cn = Conexion.getConnection();
+            String sql = "insert into empleado(nombres, apellidos, fecha_ingreso, sueldo) values (?, ?, ?, ?)";
+            ps = cn.prepareStatement(sql);
+
+            ps.setString(1, obj.getNombres());
+            ps.setString(2, obj.getApellidos());
+            ps.setString(3, obj.getFechaIngreso());
+            ps.setDouble(4, obj.getSueldo());
+
+            result = ps.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (cn != null) cn.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return result;
+    }
 }
