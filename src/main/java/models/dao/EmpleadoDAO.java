@@ -35,15 +35,9 @@ public class EmpleadoDAO {
             ex.printStackTrace();
         } finally {
             try {
-                if (cn != null){
-                    cn.close();
-                }
-                if (rs != null){
-                    cn.close();
-                }
-                if (ps != null){
-                    cn.close();
-                }
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (cn != null) cn.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
