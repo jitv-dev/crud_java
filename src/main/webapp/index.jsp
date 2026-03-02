@@ -9,6 +9,8 @@
     <title>Inicio</title>
 </head>
 <body>
-<h2>Hello World!</h2>
+    <%
+        response.sendRedirect("EmpleadoController?accion=listar");
+    %>
 </body>
 </html>
